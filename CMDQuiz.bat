@@ -15,7 +15,7 @@ if %build% LSS %newBuild% goto update_newVersion
 if %build% GEQ %newBuild% goto update_upToDate
 :update_newVersion
 echo A new version (build %newBuild%) is avalible.
-echo Download it here: DL LINK GOES HERE
+echo Download it from here: https://github.com/Leo40Git/CMDQuiz
 pause
 goto launch
 :update_upToDate
