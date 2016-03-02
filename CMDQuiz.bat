@@ -6,8 +6,8 @@ if exist .skipUpdateCheck (set command=goto launch) else (set command=goto check
 cls
 set col=9F
 color %col%
-set version=1.0.1
-set build=2
+set version=1.0.2
+set build=3
 title CMDQuiz Version %version% (build %build%)
 %command%
 :checkForUpdates
@@ -27,6 +27,8 @@ pause
 goto launch
 :launch
 if exist version.txt del version.txt
+set questionCount=1
+call data\util.bat loadGame save.bat
 call data\menu.bat
 if exist quit.txt goto endGame
 :error_crash
