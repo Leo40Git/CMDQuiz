@@ -6,8 +6,8 @@ if exist .skipUpdateCheck (set command=goto launch) else (set command=goto check
 cls
 set col=9F
 color %col%
-set version=1.0.2
-set build=3
+set version=1.0.3
+set build=4
 title CMDQuiz Version %version% (build %build%)
 %command%
 :checkForUpdates

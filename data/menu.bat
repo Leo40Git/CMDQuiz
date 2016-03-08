@@ -73,4 +73,6 @@ set /p quit="[Y/N] "
 if /i %quit% == Y (goto exitFunc) else (goto main)
 :exitFunc
 echo _>quit.txt
+cls
+color
 goto:eof
