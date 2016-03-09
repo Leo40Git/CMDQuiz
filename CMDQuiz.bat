@@ -1,12 +1,15 @@
 @echo off
-set command=nul
 :: Launcher
 :setup
 cls
+:: CONSTANTS
+set QUESTION_COUNT=2
+set SAVE_FILE_NAME=.save
+:: END CONSTANTS
 set col=9F
 color %col%
-set version=1.0.4
-set build=5
+set version=1.0.5
+set build=6
 title CMDQuiz Version %version% (build %build%)
 if exist .skipUpdateCheck goto launch
 :checkForUpdates
@@ -26,8 +29,6 @@ echo You are up to date!
 pause
 goto launch
 :launch
-set questionCount=1
-call data\util.bat loadGame save.bat
 call data\menu.bat
 if exist quit.txt goto endGame
 :error_crash
