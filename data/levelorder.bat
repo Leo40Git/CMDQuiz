@@ -8,6 +8,8 @@ goto %lvl%
 :lvl1
 set currentLevel=1
 call data\question.bat "What is the most popular indie game?" Minecraft "Nuclear Throne" "The Binding of Isaac" Undertale A
-call data\util.bat saveGame save.bat
+:lvl2
+set currentLevel=2
+call data\question.bat " " "" "" "" "" A
 :lvlorder_end
 goto:eof

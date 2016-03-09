@@ -15,35 +15,26 @@ echo  Version %version% (build %build%)
 echo(
 echo Main Menu
 echo A) Start new game
-echo B) Continue existing game
-echo C) Instructions
-echo D) Change color
-echo E) About the game
-echo F) Quit
+echo B) Instructions
+echo C) Change color
+echo D) About the game
+echo E) Quit
 if [%menu%]==[] goto skipResetMenu
 set "menu="
 :skipResetMenu
 set /p menu="What is your selection? "
 if [%menu%]==[] goto invalid
 if /i %menu% == A goto startGame
-if /i %menu% == B goto continueGame
-if /i %menu% == C goto instructions
-if /i %menu% == D goto color
-if /i %menu% == E goto about
-if /i %menu% == F goto quit
+if /i %menu% == B goto instructions
+if /i %menu% == C goto color
+if /i %menu% == D goto about
+if /i %menu% == E goto quit
 :invalid
 echo Error: Invalid selection.
 pause
 goto main
 :startGame
-set "currentLevel="
-goto bootGame
-:continueGame
-if exist save.bat goto bootGame
-echo Error: No game saved.
-pause
-goto main
-:bootGame
+set currentLevel=1
 call data\levelorder.bat %currentLevel%
 cls
 echo Congrats! You completed the game!
