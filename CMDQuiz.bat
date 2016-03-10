@@ -1,24 +1,30 @@
 @echo off
 :: Launcher
 :setup
-cls
 :: CONSTANTS
+set VERSION=1.0.6
+set BUILD=7
 set QUESTION_COUNT=2
 set SAVE_FILE_NAME=.save
 :: END CONSTANTS
+if not exist .skipUpdateCheck goto setup_dontSkipUpdateCheck
+set SKIP_UPDATE_CHECK=0
+:setup_dontSkipUpdateCheck
+if not exist .disableSaving goto setup_dontDisableSaving
+set DISABLE_SAVING=0
+:setup_dontDisableSaving
+cls
 set col=9F
 color %col%
-set version=1.0.5
-set build=6
-title CMDQuiz Version %version% (build %build%)
-if exist .skipUpdateCheck goto launch
+title CMDQuiz Version %VERSION% (build %BUILD%)
+if defined SKIP_UPDATE_CHECK goto launch
 :checkForUpdates
 if exist version.txt del version.txt
 bitsadmin /transfer checkForUpdates /download /priority normal "https://www.dropbox.com/s/oe2k15b58i7hqny/version.txt?dl=1" "%CD%\version.txt">nul
 set /p newBuild=<version.txt
 if exist version.txt del version.txt
-if %build% LSS %newBuild% goto update_newVersion
-if %build% GEQ %newBuild% goto update_upToDate
+if %BUILD% LSS %newBuild% goto update_newVersion
+if %BUILD% GEQ %newBuild% goto update_upToDate
 :update_newVersion
 echo A new version (build %newBuild%) is avalible.
 echo Download it from here: https://github.com/Leo40Git/CMDQuiz

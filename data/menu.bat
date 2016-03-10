@@ -11,7 +11,8 @@ echo  ^| ^| ^|___^| ^|  ^| ^| ^|_^| ^| ^|_^| ^| ^|_^| ^| ^|/ /  ^|
 echo  ^|  \____^|_^|  ^|_^|____/ \__\_\\__,_^|_/___^| ^|
 echo  ^|                                        ^|
 echo  +----------------------------------------+
-echo  Version %version% (build %build%)
+echo(
+echo  Version %VERSION% (build %BUILD%)
 echo(
 echo Main Menu
 echo A) Start new game
@@ -49,7 +50,7 @@ goto main
 :bootGame
 call data\levelorder.bat %currentLevel%
 cls
-echo Congrats! You completed the game!
+echo Congrats^! You completed the game^!
 pause
 goto main
 :instructions
@@ -61,7 +62,7 @@ goto main
 call data\colormenu.bat
 goto main
 :about
-echo CMDQuiz Version %version% (build %build%)
+echo CMDQuiz Version %VERSION% (build %BUILD%)
 echo A quiz game being made in native Batch script.
 echo Feel free to modify these scripts to your liking, just remember to credit me if you're going to distribute
 echo the modified versions. See "LICENSE" for more information.

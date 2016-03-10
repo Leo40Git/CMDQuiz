@@ -7,7 +7,7 @@ echo The current color is %col%.
 echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
-if "%menu%=="" goto skipReset
+if "%menu%"=="" goto skipReset
 set "menu="
 :skipReset
 set /p menu="What is your selection? "
