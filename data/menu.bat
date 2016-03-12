@@ -37,7 +37,7 @@ echo Error: Invalid selection.
 pause
 goto main
 :startGame
-set currentLevel=1
+set CURRENT_LEVEL=1
 goto bootGame
 :continueGame
 if not exist %SAVE_FILE_NAME% goto continueGame_noSave
@@ -48,7 +48,7 @@ echo Error: No save found.
 pause
 goto main
 :bootGame
-call data\levelorder.bat %currentLevel%
+call data\levelorder.bat %CURRENT_LEVEL%
 cls
 echo Congrats^! You completed the game^!
 pause

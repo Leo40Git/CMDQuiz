@@ -8,6 +8,7 @@ if /i %1 == isNum call :isNum %2 %3
 if /i %1 == isHex call :isHex %2 %3
 if /i %1 == gameSave call :gameSave %2
 if /i %1 == gameLoad call :gameLoad %2
+:exitUtil
 goto:eof
 :: Get string length
 :strlen string resultVar
@@ -37,12 +38,15 @@ goto exitUtil
 :gameSave fileName
 if defined DISABLE_SAVING goto exitUtil
 (
-  echo %currentLevel%
+  echo %CURRENT_LEVEL%
+  echo %COLOR_VALUE%
 ) > %1
 goto exitUtil
 :: Load a save file made with gameSave
 :gameLoad fileName
+if not exist %1 goto exitUtil
 < %1 (
-  set /p currentLevel=
+  set /p CURRENT_LEVEL=
+  set /p COLOR_VALUE=
 )
 goto exitUtil

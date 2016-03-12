@@ -2,8 +2,8 @@
 :: Launcher
 :setup
 :: CONSTANTS
-set VERSION=1.0.6
-set BUILD=7
+set VERSION=1.0.7
+set BUILD=8
 set QUESTION_COUNT=2
 set SAVE_FILE_NAME=.save
 :: END CONSTANTS
@@ -14,8 +14,9 @@ if not exist .disableSaving goto setup_dontDisableSaving
 set DISABLE_SAVING=0
 :setup_dontDisableSaving
 cls
-set col=9F
-color %col%
+set COLOR_VALUE=9F
+call data\util.bat gameLoad %SAVE_FILE_NAME%
+color %COLOR_VALUE%
 title CMDQuiz Version %VERSION% (build %BUILD%)
 if defined SKIP_UPDATE_CHECK goto launch
 :checkForUpdates

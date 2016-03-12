@@ -3,7 +3,7 @@
 :main
 cls
 echo Color Menu
-echo The current color is %col%.
+echo The current color is %COLOR_VALUE%.
 echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
@@ -14,7 +14,7 @@ set /p menu="What is your selection? "
 if "%menu%"=="" goto invalid
 if /i %menu% == A goto changeCol
 if /i %menu% == B goto resetCol
-if /i %menu% == C goto:eof
+if /i %menu% == C goto returnToMenu
 :invalid
 echo Error: Invalid selection.
 pause
@@ -50,8 +50,8 @@ set hex=0
 call data\util.bat isHex %coltemp% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
-set col=%col1%%col2%
-color %col%
+set COLOR_VALUE=%col1%%col2%
+color %COLOR_VALUE%
 goto main
 :error_tooLong
 echo Error: Please type one character for each color.
@@ -73,6 +73,9 @@ set "rcol="
 set /p rcol="[Y/N] "
 if /i %rcol% == Y (goto resetColFunc) else (goto main)
 :resetColFunc
-set col=9F
-color %col%
+set COLOR_VALUE=9F
+color %COLOR_VALUE%
 goto main
+:returnToMenu
+call data\util.bat gameSave %SAVE_FILE_NAME%
+goto:eof

@@ -7,11 +7,11 @@ if %lvlnum% GTR %QUESTION_COUNT% goto lvl1
 set lvl=lvl%lvlnum%
 goto %lvl%
 :lvl1
-set currentLevel=1
+set CURRENT_LEVEL=1
 call data\question.bat "What is the most popular indie game?" Minecraft "Nuclear Throne" "The Binding of Isaac" Undertale A
 call data\util.bat gameSave %SAVE_FILE_NAME%
 :lvl2
-set currentLevel=2
+set CURRENT_LEVEL=2
 call data\question.bat "test" "1" "2" "3" "4" A
 call data\util.bat gameSave %SAVE_FILE_NAME%
 :lvlorder_end
