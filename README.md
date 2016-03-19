@@ -5,4 +5,4 @@ A quiz game being made in native Batch script.
 
 - [ ] ADD MORE LEVELS!
 - [ ] Finish instruction & about sections
-- [ ] Add save files
+- [x] Add save files

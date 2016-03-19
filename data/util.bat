@@ -38,15 +38,24 @@ goto exitUtil
 :gameSave fileName
 if defined DISABLE_SAVING goto exitUtil
 (
+  echo CMDQUIZ_%BUILD%_SAVE
   echo %CURRENT_LEVEL%
   echo %COLOR_VALUE%
 ) > %1
 goto exitUtil
 :: Load a save file made with gameSave
 :gameLoad fileName
+if defined DISABLE_SAVING goto exitUtil
 if not exist %1 goto exitUtil
 < %1 (
+  set /p SAVE_VERSION=
+  )
+if "%SAVE_VERSION%" NEQ "CMDQUIZ_%BUILD%_SAVE" goto gameLoad_invalid
+< %1 (
+  set /p SAVE_VERSION=
   set /p CURRENT_LEVEL=
   set /p COLOR_VALUE=
-)
+  )
+:gameLoad_invalid
+if defined SAVE_VERSION set "SAVE_VERSION="
 goto exitUtil

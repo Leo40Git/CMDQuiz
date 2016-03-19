@@ -2,9 +2,9 @@
 :: Launcher
 :setup
 :: CONSTANTS
-set VERSION=1.0.7
-set BUILD=8
-set QUESTION_COUNT=2
+set VERSION=1.0.8
+set BUILD=9
+set QUESTION_COUNT=3
 set SAVE_FILE_NAME=.save
 :: END CONSTANTS
 if not exist .skipUpdateCheck goto setup_dontSkipUpdateCheck
