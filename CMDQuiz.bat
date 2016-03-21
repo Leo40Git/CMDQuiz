@@ -1,16 +1,44 @@
+:: Test if extensions can be enabled
+@VERIFY OTHER 2>nul
+@SETLOCAL EnableExtensions
+@IF ERRORLEVEL 1 goto error_onLaunch
+@ENDLOCAL
+goto canSetup
+:error_onLaunch
+@echo Error: Unable to enable extensions.
+@pause
+@exit /b
+:canSetup
+:: Beginning of launcher code
+@SETLOCAL EnableExtensions DisableDelayedExpansion
 @echo off
 :: Launcher
 :setup
 :: CONSTANTS
-set VERSION=1.0.8
-set BUILD=9
+set VERSION=1.0.9
+set BUILD=10
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME=.save
 :: END CONSTANTS
-if not exist .skipUpdateCheck goto setup_dontSkipUpdateCheck
+if "%~1"=="--?" goto usage
+goto boot
+:usage
+echo CMDQuiz Version %VERSION% (build %BUILD%)
+echo A quiz game being made in native Batch script.
+echo Usage: %0 [options]
+echo Key:
+echo  options - Options for current session
+echo            These options include:
+echo            --skipUpdateCheck - Skip update checking
+echo            --disableSaving   - Disable saving ^& loading
+exit /b
+:boot
+echo.%* | findstr /C:"--skipUpdateCheck" 1>nul
+if errorlevel 1 (goto setup_dontSkipUpdateCheck)
 set SKIP_UPDATE_CHECK=0
 :setup_dontSkipUpdateCheck
-if not exist .disableSaving goto setup_dontDisableSaving
+echo.%* | findstr /C:"--disableSaving" 1>nul
+if errorlevel 1 (goto setup_dontDisableSaving)
 set DISABLE_SAVING=0
 :setup_dontDisableSaving
 cls
@@ -43,4 +71,5 @@ echo Error: The game encountered an unknown error and crashed.
 pause
 :endGame
 if exist quit.txt del quit.txt
+ENDLOCAL
 exit /b
