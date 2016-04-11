@@ -33,18 +33,33 @@ if /i %menu% == D goto color
 if /i %menu% == E goto about
 if /i %menu% == F goto quit
 :invalid
-echo Error: Invalid selection.
+echo Invalid selection.
 pause
 goto main
 :startGame
+if not exist %SAVE_FILE_NAME% goto startGame_noExistingSave
+if "%newGame%"=="" goto skipResetNewGame
+set "newGame="
+:skipResetNewGame
+echo An existing save was found!
+echo Are you sure you want to delete it and start a new game?
+set /p newGame="[Y/N] "
+if /i %newGame% == Y (goto startGame_noExistingSave) else (goto main)
+:startGame_noExistingSave
 set CURRENT_LEVEL=1
 goto bootGame
 :continueGame
-if not exist %SAVE_FILE_NAME% goto continueGame_noSave
-call data\util.bat gameLoad %SAVE_FILE_NAME%
+if not exist %SAVE_FILE_NAME% goto continueGame_errorNoSave
+set success=0
+call data\util.bat gameLoad %SAVE_FILE_NAME% success
+if %success% EQU 0 goto continueGame_errorLoadFailed
 goto bootGame
-:continueGame_noSave
-echo Error: No save found.
+:continueGame_errorNoSave
+echo No save found.
+pause
+goto main
+:continueGame_errorLoadFailed
+echo Could not load save. Please make sure it was created by CMDQuiz.
 pause
 goto main
 :bootGame
@@ -76,7 +91,6 @@ echo Are you sure you want to quit?
 set /p quit="[Y/N] "
 if /i %quit% == Y (goto exitFunc) else (goto main)
 :exitFunc
-echo _>quit.txt
 cls
 color
 goto:eof

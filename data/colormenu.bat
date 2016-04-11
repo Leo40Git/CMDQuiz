@@ -33,21 +33,24 @@ if "%col1%"=="" goto skipResetCol1
 set "col1="
 :skipResetCol1
 set /p col1="Enter background color: "
+setlocal
+set collen=0
+call data\util.bat strlen %col1% collen
+if %collen% GTR 1 goto error_tooLong
+set hex=0
+call data\util.bat isHex %col1% hex
+if %hex% EQU 0 goto error_notHex
+endlocal
 if "%col2%"=="" goto skipResetCol2
 set "col2="
 :skipResetCol2
 set /p col2="Enter foreground color: "
 setlocal
-set colstr=%col1%%col2%
 set collen=0
-call data\util.bat strlen colstr collen
-if %collen% GTR 2 goto error_tooLong
-endlocal
-if %col1%==%col2% goto error_sameCol
-setlocal
-set coltemp=%col1%%col2%
+call data\util.bat strlen %col2% collen
+if %collen% GTR 1 goto error_tooLong
 set hex=0
-call data\util.bat isHex %coltemp% hex
+call data\util.bat isHex %col2% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
 set COLOR_VALUE=%col1%%col2%
