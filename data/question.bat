@@ -12,7 +12,7 @@ set valid=0
 call data\util.bat isAnswer %~6 valid
 if %valid% EQU 0 goto error_invalidCorrectAnswer
 endlocal
-if "%answer%"=="" goto skipReset
+if "^%answer%"=="" goto skipReset
 set "answer="
 :skipReset
 echo %~1
@@ -23,10 +23,10 @@ echo D) %~5
 set /p answer="What is your answer? "
 setlocal
 set valid=0
-call data\util.bat isAnswer %answer% valid
+call data\util.bat isAnswer ^%answer% valid
 if %valid% EQU 0 goto invalid
 endlocal
-if /i %answer% == %~6 goto correct
+if /i ^%answer% == %~6 goto correct
 :incorrect
 echo The answer is incorrect.
 pause

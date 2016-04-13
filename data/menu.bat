@@ -21,30 +21,30 @@ echo C) Instructions
 echo D) Change color
 echo E) About the game
 echo F) Quit
-if "%menu%"=="" goto skipResetMenu
+if "^%menu%"=="" goto skipResetMenu
 set "menu="
 :skipResetMenu
 set /p menu="What is your selection? "
-if "%menu%"=="" goto invalid
-if /i %menu% == A goto startGame
-if /i %menu% == B goto continueGame
-if /i %menu% == C goto instructions
-if /i %menu% == D goto color
-if /i %menu% == E goto about
-if /i %menu% == F goto quit
+if "^%menu%"=="" goto invalid
+if /i ^%menu% == A goto startGame
+if /i ^%menu% == B goto continueGame
+if /i ^%menu% == C goto instructions
+if /i ^%menu% == D goto color
+if /i ^%menu% == E goto about
+if /i ^%menu% == F goto quit
 :invalid
 echo Invalid selection.
 pause
 goto main
 :startGame
 if not exist %SAVE_FILE_NAME% goto startGame_noExistingSave
-if "%newGame%"=="" goto skipResetNewGame
+if "^%newGame%"=="" goto skipResetNewGame
 set "newGame="
 :skipResetNewGame
 echo An existing save was found!
 echo Are you sure you want to delete it and start a new game?
 set /p newGame="[Y/N] "
-if /i %newGame% == Y (goto startGame_noExistingSave) else (goto main)
+if /i ^%newGame% == Y (goto startGame_noExistingSave) else (goto main)
 :startGame_noExistingSave
 set CURRENT_LEVEL=1
 goto bootGame
@@ -59,7 +59,7 @@ echo No save found.
 pause
 goto main
 :continueGame_errorLoadFailed
-echo Could not load save. Please make sure it was created by CMDQuiz.
+echo Could not load save. This is probably because the save was modified and the values are invalid.
 pause
 goto main
 :bootGame
@@ -84,12 +84,12 @@ echo the modified versions. See "LICENSE" for more information.
 pause
 goto main
 :quit
-if "%quit%"=="" goto skipResetQuit
+if "^%quit%"=="" goto skipResetQuit
 set "quit="
 :skipResetQuit
 echo Are you sure you want to quit?
 set /p quit="[Y/N] "
-if /i %quit% == Y (goto exitFunc) else (goto main)
+if /i ^%quit% == Y (goto exitFunc) else (goto main)
 :exitFunc
 cls
 color

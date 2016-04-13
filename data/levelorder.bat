@@ -4,9 +4,13 @@
 :lvlorder
 set lvlnum=%1
 if "%lvlnum%"=="" goto lvl1
-if %lvlnum% GTR %QUESTION_COUNT% goto lvl1
+if %lvlnum% LSS 1 goto gameLoad_invalid
+if %lvlnum% GTR %QUESTION_COUNT% goto lvlorder_invalid
 set lvl=lvl%lvlnum%
 goto %lvl%
+:lvlorder_invalid
+echo Specified level doesn't exist!
+goto:eof
 
 :lvl1
 set CURRENT_LEVEL=1

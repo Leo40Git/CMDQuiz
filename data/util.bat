@@ -63,9 +63,24 @@ if %savebuild% GTR %BUILD% goto gameLoad_invalid
 < %1 (
   set /p savever=
   set /p savebuild=
-  set /p CURRENT_LEVEL=
-  set /p COLOR_VALUE=
+  set /p cur_lvl=
   )
+if %cur_lvl% LSS 1 goto gameLoad_invalid
+if %cur_lvl% GTR %QUESTION_COUNT% goto gameLoad_invalid
+< %1 (
+  set /p savever=
+  set /p savebuild=
+  set /p cur_lvl=
+  set /p col_val=
+  )
+if %col_val:~0%==%col_val:~1% goto gameLoad_invalid
+setlocal
+set hex=0
+call :isHex %col_val% hex
+if %hex% equ 0 goto gameLoad_invalid
+endlocal
+set CURRENT_LEVEL=%cur_lvl%
+set COLOR_VALUE=%col_val%
 set %2=1
 goto gameLoad_exit
 :gameLoad_invalid
@@ -73,4 +88,6 @@ set %2=0
 :gameLoad_exit
 if defined savever set "savever="
 if defined savebuild set "savebuild="
+if defined cur_lvl set "cur_lvl="
+if defined col_val set "col_val="
 goto exitUtil

@@ -7,14 +7,14 @@ echo The current color is %COLOR_VALUE%.
 echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
-if "%menu%"=="" goto skipReset
+if "^%menu%"=="" goto skipReset
 set "menu="
 :skipReset
 set /p menu="What is your selection? "
-if "%menu%"=="" goto invalid
-if /i %menu% == A goto changeCol
-if /i %menu% == B goto resetCol
-if /i %menu% == C goto returnToMenu
+if "^%menu%"=="" goto invalid
+if /i ^%menu% == A goto changeCol
+if /i ^%menu% == B goto resetCol
+if /i ^%menu% == C goto returnToMenu
 :invalid
 echo Error: Invalid selection.
 pause
@@ -29,31 +29,31 @@ echo 4 = Red ^| C = Light Red
 echo 5 = Purple ^| D = Light Purple
 echo 6 = Yellow ^| E = Light Yellow
 echo 7 = White ^| F = Bright White
-if "%col1%"=="" goto skipResetCol1
+if "^%col1%"=="" goto skipResetCol1
 set "col1="
 :skipResetCol1
 set /p col1="Enter background color: "
 setlocal
 set collen=0
-call data\util.bat strlen %col1% collen
+call data\util.bat strlen ^%col1% collen
 if %collen% GTR 1 goto error_tooLong
 set hex=0
-call data\util.bat isHex %col1% hex
+call data\util.bat isHex ^%col1% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
-if "%col2%"=="" goto skipResetCol2
+if "^%col2%"=="" goto skipResetCol2
 set "col2="
 :skipResetCol2
 set /p col2="Enter foreground color: "
 setlocal
 set collen=0
-call data\util.bat strlen %col2% collen
+call data\util.bat strlen ^%col2% collen
 if %collen% GTR 1 goto error_tooLong
 set hex=0
-call data\util.bat isHex %col2% hex
+call data\util.bat isHex ^%col2% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
-set COLOR_VALUE=%col1%%col2%
+set COLOR_VALUE=^%col1%^%col2%
 color %COLOR_VALUE%
 goto main
 :error_tooLong
@@ -70,11 +70,11 @@ pause
 goto main
 :resetCol
 echo Are you sure you want to reset the color?
-if "%rcol%"=="" goto skipResetRCol
+if "^%rcol%"=="" goto skipResetRCol
 set "rcol="
 :skipResetRCol
 set /p rcol="[Y/N] "
-if /i %rcol% == Y (goto resetColFunc) else (goto main)
+if /i ^%rcol% == Y (goto resetColFunc) else (goto main)
 :resetColFunc
 set COLOR_VALUE=9F
 color %COLOR_VALUE%
