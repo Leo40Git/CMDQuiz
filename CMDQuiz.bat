@@ -16,8 +16,8 @@
 :setup
 :: CONSTANTS
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.2
-set BUILD=13
+set VERSION=1.1.2_1
+set BUILD=14
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME=%GAME_NAME%.save
 set SAVE_FILE_VERSION=1
@@ -52,7 +52,7 @@ title CMDQuiz Version %VERSION% (build %BUILD%)
 if defined SKIP_UPDATE_CHECK goto launch
 :checkForUpdates
 if exist version.txt del version.txt
-bitsadmin /transfer checkForUpdates /download /priority normal "https://www.dropbox.com/s/oe2k15b58i7hqny/version.txt?dl=1" "%CD%\version.txt" >nul
+bitsadmin /transfer checkForUpdates /download /priority normal "https://www.dropbox.com/s/lhtvg70xfxfh0lj/version.txt?dl=1" "%CD%\version.txt" >nul
 set /p newBuild=<version.txt
 if exist version.txt del version.txt
 if %BUILD% LSS %newBuild% goto update_newVersion
