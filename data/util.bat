@@ -2,7 +2,7 @@
 :: Utilities
 :launchUtil
 if "%1"=="" goto exitUtil
-call :%1 %2 %3
+call :%*
 :exitUtil
 exit /b
 :: Get string length
@@ -38,14 +38,15 @@ goto exitUtil
 :: Create a save file to load with gameLoad
 :gameSave fileName
 if defined DISABLE_SAVING goto exitUtil
-set curlvl=1
-if defined CURRENT_LEVEL set curlvl=%CURRENT_LEVEL%
+set cur_lvl=1
+if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
 (
   echo CMDQUIZ_SAVE_V%SAVE_FILE_VERSION%
   echo %BUILD%
-  echo %curlvl%
+  echo %cur_lvl%
   echo %COLOR_VALUE%
 ) > %1
+set "cur_lvl="
 goto exitUtil
 :: Load a save file made with gameSave
 :gameLoad fileName successVar

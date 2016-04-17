@@ -16,8 +16,8 @@
 :setup
 :: CONSTANTS
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.1
-set BUILD=12
+set VERSION=1.1.2
+set BUILD=13
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME=%GAME_NAME%.save
 set SAVE_FILE_VERSION=1
@@ -41,7 +41,10 @@ echo.%* | findstr /ic:"--disableSaving">nul
 if %errorlevel% equ 0 set DISABLE_SAVING=true
 cls
 set ORIG_DIR=%CD%
-cd %~dp0
+setlocal
+set DIR_TMP=%~dp0
+cd %DIR_TMP:~0,-1%
+endlocal
 set COLOR_VALUE=9F
 call data\util.bat gameLoad %SAVE_FILE_NAME% nul
 color %COLOR_VALUE%

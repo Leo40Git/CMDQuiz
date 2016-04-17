@@ -21,18 +21,19 @@ pause
 goto main
 :changeCol
 echo Color values:
-echo 0 = Black ^| 8 = Gray
-echo 1 = Blue ^| 9 = Light Blue
-echo 2 = Green ^| A = Light Green
-echo 3 = Aqua ^| B = Light Aqua
-echo 4 = Red ^| C = Light Red
+echo 0 = Black  ^| 8 = Gray
+echo 1 = Blue   ^| 9 = Light Blue
+echo 2 = Green  ^| A = Light Green
+echo 3 = Aqua   ^| B = Light Aqua
+echo 4 = Red    ^| C = Light Red
 echo 5 = Purple ^| D = Light Purple
 echo 6 = Yellow ^| E = Light Yellow
-echo 7 = White ^| F = Bright White
+echo 7 = White  ^| F = Bright White
 if "^%col1%"=="" goto skipResetCol1
 set "col1="
 :skipResetCol1
 set /p col1="Enter background color: "
+if not defined col1 goto skipResetCol1
 setlocal
 set collen=0
 call data\util.bat strlen ^%col1% collen
@@ -41,10 +42,11 @@ set hex=0
 call data\util.bat isHex ^%col1% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
-if "^%col2%"=="" goto skipResetCol2
+if "^%col2% "==" " goto skipResetCol2
 set "col2="
 :skipResetCol2
 set /p col2="Enter foreground color: "
+if not defined col2 goto skipResetCol2
 setlocal
 set collen=0
 call data\util.bat strlen ^%col2% collen
@@ -53,6 +55,7 @@ set hex=0
 call data\util.bat isHex ^%col2% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
+if "^%col1%"=="^%col2%" goto error_sameCol
 set COLOR_VALUE=^%col1%^%col2%
 color %COLOR_VALUE%
 goto main
