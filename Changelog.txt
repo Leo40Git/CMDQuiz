@@ -1,0 +1,49 @@
+CMDQuiz Changelog
+Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
+~~~~
+Version 1.1.2_1 (build 14)
+- Fixed update checking
+~~~~
+Version 1.1.2 (build 13)
+- Fixed some silly bugs in the color menu
+~~~~
+Version 1.1.1 (build 12)
+- Fool-proofed some more code
+~~~~
+Version 1.1.0 (build 11)
+- Fool-proofed some code
+- Added confirmation for new game if existing game is found
+~~~~
+Version 1.0.9 (build 10)
+- Improved launcher code
+~~~~
+Version 1.0.8 (build 9)
+- Added another level (finally!)
+- Finished(?) saving & loading
+~~~~
+Version 1.0.7 (build 8)
+- Fixed "label exitUtil doesn't exist" error
+- Color value is now saved & loaded
+~~~~
+Version 1.0.6 (build 7)
+- Improved & fixed a LOT of stuff!
+- Removed some useless code
+~~~~
+Version 1.0.5 (build 6)
+- Re-added save files!
+~~~~
+Version 1.0.4 (build 5)
+- Temporarily removed save files
+~~~~
+Version 1.0.3 (build 4)
+- Game now resets color and clears screen when quitting
+~~~~
+Version 1.0.2 (build 3)
+- ADDED SAVE FILES!
+- Completed(?) about section
+~~~~
+Version 1.0.1 (build 2)
+- Game now skips update check if ".skipUpdateCheck" file is found in root directory
+~~~~
+Version 1.0.0 (build 1)
+- Initial release
