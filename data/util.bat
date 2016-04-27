@@ -74,12 +74,13 @@ if %cur_lvl% GTR %QUESTION_COUNT% goto gameLoad_invalid
   set /p cur_lvl=
   set /p col_val=
   )
-if %col_val:~0%==%col_val:~1% goto gameLoad_invalid
-setlocal
+set len=0
+call :strlen %col_val% len
+if %len% GTR 2 set col_val=%col_val:~0,2%
+if %col_val:~0,1%==%col_val:~1,1% goto gameLoad_invalid
 set hex=0
 call :isHex %col_val% hex
 if %hex% equ 0 goto gameLoad_invalid
-endlocal
 set CURRENT_LEVEL=%cur_lvl%
 set COLOR_VALUE=%col_val%
 set %2=1
@@ -87,6 +88,8 @@ goto gameLoad_exit
 :gameLoad_invalid
 set %2=0
 :gameLoad_exit
+if defined hex set "hex="
+if defined len set "len="
 if defined savever set "savever="
 if defined savebuild set "savebuild="
 if defined cur_lvl set "cur_lvl="

@@ -7,11 +7,11 @@ echo The current color is %COLOR_VALUE%.
 echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
-if "^%menu%"=="" goto skipReset
+if [^%menu%] == [] goto skipReset
 set "menu="
 :skipReset
 set /p menu="What is your selection? "
-if "^%menu%"=="" goto invalid
+if [^%menu%] == [] goto invalid
 if /i ^%menu% == A goto changeCol
 if /i ^%menu% == B goto resetCol
 if /i ^%menu% == C goto returnToMenu
@@ -29,7 +29,7 @@ echo 4 = Red    ^| C = Light Red
 echo 5 = Purple ^| D = Light Purple
 echo 6 = Yellow ^| E = Light Yellow
 echo 7 = White  ^| F = Bright White
-if "^%col1%"=="" goto skipResetCol1
+if [^%col1%] == [] goto skipResetCol1
 set "col1="
 :skipResetCol1
 set /p col1="Enter background color: "
@@ -73,7 +73,7 @@ pause
 goto main
 :resetCol
 echo Are you sure you want to reset the color?
-if "^%rcol%"=="" goto skipResetRCol
+if "^%rcol%" == [] goto skipResetRCol
 set "rcol="
 :skipResetRCol
 set /p rcol="[Y/N] "

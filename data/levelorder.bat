@@ -3,7 +3,7 @@
 
 :lvlorder
 set lvlnum=%1
-if "%lvlnum%"=="" goto lvl1
+if [%lvlnum%] == [] goto lvl1
 if %lvlnum% LSS 1 goto gameLoad_invalid
 if %lvlnum% GTR %QUESTION_COUNT% goto lvlorder_invalid
 set lvl=lvl%lvlnum%

@@ -1,6 +1,9 @@
 CMDQuiz Changelog
 Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
 ~~~~
+Version 1.1.3 (build 15)
+- Misc. fixes
+~~~~
 Version 1.1.2_1 (build 14)
 - Fixed update checking
 ~~~~
@@ -16,6 +19,9 @@ Version 1.1.0 (build 11)
 ~~~~
 Version 1.0.9 (build 10)
 - Improved launcher code
+- Skipping update check and preventing saving are now done through arguments:
+  "--skipUpdateCheck" skips update check,
+  "--disableSaving" prevents saving.
 ~~~~
 Version 1.0.8 (build 9)
 - Added another level (finally!)
@@ -28,6 +34,7 @@ Version 1.0.7 (build 8)
 Version 1.0.6 (build 7)
 - Improved & fixed a LOT of stuff!
 - Removed some useless code
+- Game now prevents saving if ".disableSaving" file is found in root directory
 ~~~~
 Version 1.0.5 (build 6)
 - Re-added save files!
