@@ -8,10 +8,12 @@ echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
 set /p menu="What is your selection? "
-set /a menu=menu
-if %menu% equ 0 goto changeCol
-if %menu% equ 0 goto resetCol
-if %menu% equ 0 goto returnToMenu
+if not [^%menu%] == [] set "menu="
+set /p menu="What is your selection? "
+if [^%menu%] == [] goto invalid
+if /i ^%menu% == A goto changeCol
+if /i ^%menu% == B goto resetCol
+if /i ^%menu% == C goto returnToMenu
 :invalid
 echo Error: Invalid selection.
 pause
@@ -28,7 +30,7 @@ echo 6 = Yellow ^| E = Light Yellow
 echo 7 = White  ^| F = Bright White
 if not [^%col1%] == [] set "col1="
 set /p col1="Enter background color: "
-if not defined col1 goto skipResetCol1
+if [^%col1%] == [] goto error_notHex
 setlocal
 set collen=0
 call data\util.bat strlen ^%col1% collen
@@ -39,7 +41,7 @@ if %hex% EQU 0 goto error_notHex
 endlocal
 if not [^%col2%] == [] set "col2="
 set /p col2="Enter foreground color: "
-if not defined col2 goto skipResetCol2
+if [^%col2%] == [] goto error_notHex
 setlocal
 set collen=0
 call data\util.bat strlen ^%col2% collen

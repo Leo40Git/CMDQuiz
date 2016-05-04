@@ -1,6 +1,9 @@
 CMDQuiz Changelog
 Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
 ~~~~
+Version 1.1.4_1 (build 17)
+- Fixed color menu
+~~~~
 Version 1.1.4 (build 16)
 - Removed unnecessary labels
 - Misc. improvements
