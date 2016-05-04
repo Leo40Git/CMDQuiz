@@ -7,14 +7,11 @@ echo The current color is %COLOR_VALUE%.
 echo A) Change color
 echo B) Restore default color
 echo C) Return to menu
-if [^%menu%] == [] goto skipReset
-set "menu="
-:skipReset
 set /p menu="What is your selection? "
-if [^%menu%] == [] goto invalid
-if /i ^%menu% == A goto changeCol
-if /i ^%menu% == B goto resetCol
-if /i ^%menu% == C goto returnToMenu
+set /a menu=menu
+if %menu% equ 0 goto changeCol
+if %menu% equ 0 goto resetCol
+if %menu% equ 0 goto returnToMenu
 :invalid
 echo Error: Invalid selection.
 pause
@@ -29,9 +26,7 @@ echo 4 = Red    ^| C = Light Red
 echo 5 = Purple ^| D = Light Purple
 echo 6 = Yellow ^| E = Light Yellow
 echo 7 = White  ^| F = Bright White
-if [^%col1%] == [] goto skipResetCol1
-set "col1="
-:skipResetCol1
+if not [^%col1%] == [] set "col1="
 set /p col1="Enter background color: "
 if not defined col1 goto skipResetCol1
 setlocal
@@ -42,9 +37,7 @@ set hex=0
 call data\util.bat isHex ^%col1% hex
 if %hex% EQU 0 goto error_notHex
 endlocal
-if "^%col2% "==" " goto skipResetCol2
-set "col2="
-:skipResetCol2
+if not [^%col2%] == [] set "col2="
 set /p col2="Enter foreground color: "
 if not defined col2 goto skipResetCol2
 setlocal
@@ -73,9 +66,7 @@ pause
 goto main
 :resetCol
 echo Are you sure you want to reset the color?
-if "^%rcol%" == [] goto skipResetRCol
-set "rcol="
-:skipResetRCol
+if not "^%rcol%" == [] set "rcol="
 set /p rcol="[Y/N] "
 if /i ^%rcol% == Y (goto resetColFunc) else (goto main)
 :resetColFunc

@@ -21,9 +21,7 @@ echo C) Instructions
 echo D) Change color
 echo E) About the game
 echo F) Quit
-if [^%menu%] == [] goto skipResetMenu
-set "menu="
-:skipResetMenu
+if not [^%menu%] == [] set "menu="
 set /p menu="What is your selection? "
 if [^%menu%] == [] goto invalid
 if /i ^%menu% == A goto startGame
@@ -38,9 +36,7 @@ pause
 goto main
 :startGame
 if not exist %SAVE_FILE_NAME% goto startGame_noExistingSave
-if [^%newGame%] == [] goto skipResetNewGame
-set "newGame="
-:skipResetNewGame
+if not [^%newGame%] == [] set "newGame="
 echo An existing save was found!
 echo Are you sure you want to delete it and start a new game?
 set /p newGame="[Y/N] "
@@ -84,9 +80,7 @@ echo the modified versions. See "LICENSE" for more information.
 pause
 goto main
 :quit
-if [^%quit%] == [] goto skipResetQuit
-set "quit="
-:skipResetQuit
+if not [^%quit%] == [] set "quit="
 echo Are you sure you want to quit?
 set /p quit="[Y/N] "
 if /i ^%quit% == Y (goto exitFunc) else (goto main)

@@ -12,9 +12,7 @@ set valid=0
 call data\util.bat isAnswer %~6 valid
 if %valid% EQU 0 goto error_invalidCorrectAnswer
 endlocal
-if [^%answer%] == [] goto skipReset
-set "answer="
-:skipReset
+if not [^%answer%] == [] set "answer="
 echo %~1
 echo A) %~2
 echo B) %~3
