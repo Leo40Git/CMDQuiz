@@ -1,6 +1,12 @@
 CMDQuiz Changelog
 Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
 ~~~~
+Version 1.1.5 (build 18)
+- Added session locking - another session cannot be launched
+  if an existing one is found
+- Added internet connection check to update check
+- Added viewing the changelog from the main menu
+~~~~
 Version 1.1.4_1 (build 17)
 - Fixed color menu
 ~~~~
