@@ -35,12 +35,6 @@ SET "var="&for /f "delims=0123456789ABCDEFabcdef" %%i in ("%1") do set var=%%i
 if defined var (set %2=0) else (set %2=1)
 goto exitUtil
 
-:: Check if valid answer
-:isAnswer string resultVar
-SET "var="&for /f "delims=ABCDabcd" %%i in ("%1") do set var=%%i
-if defined var (set %2=0) else (set %2=1)
-goto exitUtil
-
 :: Create a save file to load with gameLoad
 :gameSave fileName
 if defined DISABLE_SAVING goto exitUtil

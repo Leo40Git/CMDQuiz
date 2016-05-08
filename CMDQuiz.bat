@@ -16,19 +16,21 @@
 :setup
 :: CONSTANTS
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.5
-set BUILD=18
+set VERSION=1.1.6
+set BUILD=19
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME=%GAME_NAME%.save
 set SAVE_FILE_VERSION=1
-set LOCK_FILE_NAME=%GAME_NAME%.lock
+set LOCK_FILE_NAME=.SessionLock
+set CHLG_FILE_NAME=Changelog.txt
 set CONNECTION_TEST_SERVER=www.google.com
 if not exist %LOCK_FILE_NAME% goto setup_noLock
 echo Error: Session is already running.
 pause
 goto exitBat
 :setup_noLock
-copy nul %LOCK_FILE_NAME%
+copy nul %LOCK_FILE_NAME%>nul
+attrib %LOCK_FILE_NAME% +H
 :: END CONSTANTS
 if "%~1"=="--?" goto usage
 goto boot
@@ -50,7 +52,8 @@ if %errorlevel% equ 0 set DISABLE_SAVING=true
 cls
 pushd %~dp0
 set COLOR_VALUE=9F
-call data\util.bat gameLoad %SAVE_FILE_NAME% nul
+call data\util.bat gameLoad %SAVE_FILE_NAME% g
+set "g="
 color %COLOR_VALUE%
 title CMDQuiz Version %VERSION% (build %BUILD%)
 ping "%CONNECTION_TEST_SERVER%" -n 1 -w 1000>nul
@@ -79,6 +82,7 @@ goto launch
 :launch
 call data\menu.bat
 :endGame
+attrib %LOCK_FILE_NAME% -H
 if exist %LOCK_FILE_NAME% del %LOCK_FILE_NAME%
 popd
 :exitBat

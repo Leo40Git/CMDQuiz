@@ -4,16 +4,14 @@
 cls
 echo Color Menu
 echo The current color is %COLOR_VALUE%.
-echo A) Change color
-echo B) Restore default color
-echo C) Return to menu
+echo 1) Change color
+echo 2) Restore default color
+echo 3) Return to menu
 set /p menu="What is your selection? "
-if not [^%menu%] == [] set "menu="
-set /p menu="What is your selection? "
-if [^%menu%] == [] goto invalid
-if /i ^%menu% == A goto changeCol
-if /i ^%menu% == B goto resetCol
-if /i ^%menu% == C goto returnToMenu
+set /a menu=menu
+if %menu% equ 1 goto changeCol
+if %menu% equ 2 goto resetCol
+if %menu% equ 3 goto returnToMenu
 :invalid
 echo Error: Invalid selection.
 pause

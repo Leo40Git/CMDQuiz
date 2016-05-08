@@ -4,27 +4,22 @@
 :: 1 - question
 :: 2-5 - answers
 :: 6 - correct answer
-:question question answerA answerB answerC answerD correctAnswer
+:question question answer1 answer2 answer3 answer4 correctAnswer
+setlocal
+set /a "c=%~6"
+if %c% lss 1 goto error_invalidCorrectAnswer
+if %c% gtr 4 goto error_invalidCorrectAnswer
+endlocal
 setlocal
 cls
-setlocal
-set valid=0
-call data\util.bat isAnswer %~6 valid
-if %valid% EQU 0 goto error_invalidCorrectAnswer
-endlocal
-if not [^%answer%] == [] set "answer="
 echo %~1
-echo A) %~2
-echo B) %~3
-echo C) %~4
-echo D) %~5
+echo 1) %~2
+echo 2) %~3
+echo 3) %~4
+echo 4) %~5
 set /p answer="What is your answer? "
-if [^%answer%] == [] goto invalid
-set valid=0
-call data\util.bat isAnswer ^%answer% valid
-if %valid% EQU 0 goto invalid
-set "valid="
-if /i ^%answer% == %~6 goto correct
+set /a answer=answer
+if %answer% == %~6 goto correct
 :incorrect
 echo The answer is incorrect.
 pause
@@ -39,7 +34,7 @@ pause
 endlocal
 goto:eof
 :error_invalidCorrectAnswer
-echo Error: Corrent answer was not A, B, C or D.
+echo Error: Corrent answer was not 1, 2, 3 or 4.
 pause
 endlocal
 goto:eof

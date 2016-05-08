@@ -15,23 +15,22 @@ echo(
 echo  Version %VERSION% (build %BUILD%)
 echo(
 echo Main Menu
-echo A) Start new game
-echo B) Continue existing game
-echo C) Instructions
-echo D) Change color
-echo E) About the game
-echo F) View changelog
-echo G) Quit
-if not [^%menu%] == [] set "menu="
+echo 1) Start new game
+echo 2) Continue existing game
+echo 3) Instructions
+echo 4) Change color
+echo 5) About the game
+echo 6) View changelog
+echo 7) Quit
 set /p menu="What is your selection? "
-if [^%menu%] == [] goto invalid
-if /i ^%menu% == A goto startGame
-if /i ^%menu% == B goto continueGame
-if /i ^%menu% == C goto instructions
-if /i ^%menu% == D goto color
-if /i ^%menu% == E goto about
-if /i ^%menu% == F goto changelog
-if /i ^%menu% == G goto quit
+set /a menu=menu
+if %menu% equ 1 goto startGame
+if %menu% equ 2 goto continueGame
+if %menu% equ 3 goto instructions
+if %menu% equ 4 goto color
+if %menu% equ 5 goto about
+if %menu% equ 6 goto changelog
+if %menu% equ 7 goto quit
 :invalid
 echo Invalid selection.
 pause
@@ -83,7 +82,7 @@ pause
 goto main
 :changelog
 cls
-if exist Changelog.txt (type Changelog.txt) else goto changelog_error_notExists
+if exist %CHLG_FILE_NAME% (type %CHLG_FILE_NAME%) else goto changelog_error_notExists
 pause
 goto main
 :changelog_error_notExists

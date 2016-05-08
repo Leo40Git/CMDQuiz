@@ -14,17 +14,17 @@ goto:eof
 
 :lvl1
 set CURRENT_LEVEL=1
-call data\question.bat "What is the most popular indie game?" Minecraft "Nuclear Throne" "The Binding of Isaac" Undertale A
+call data\question.bat "What is the most popular indie game?" Minecraft "Nuclear Throne" "The Binding of Isaac" Undertale 1
 call data\util.bat gameSave %SAVE_FILE_NAME%
 
 :lvl2
 set CURRENT_LEVEL=2
-call data\question.bat "Which food doesn't fit?" "Hot Dog" "Hamburger" "Pizza" "Cake" D
+call data\question.bat "Which food doesn't fit?" "Hot Dog" "Hamburger" "Pizza" "Cake" 4
 call data\util.bat gameSave %SAVE_FILE_NAME%
 
 :lvl3
 set CURRENT_LEVEL=3
-call data\question.bat "No question... yet." "Incorrect" "Correct" "Incorrect" "Incorrect" B
+call data\question.bat "No question... yet." "Incorrect" "Correct" "Incorrect" "Incorrect" 2
 call data\util.bat gameSave %SAVE_FILE_NAME%
 
 :lvlorder_end
