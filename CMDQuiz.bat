@@ -15,14 +15,19 @@
 :: Launcher
 :setup
 :: CONSTANTS
+set USER_DIR="%localappdata%\CMDQuiz"
+if not exist %USER_DIR% md %USER_DIR%
+pause
+set TEMP_DIR=%~dp0
+if defined temp (set TEMP_DIR=%temp%) else if defined tmp (set TEMP_DIR=%tmp%)
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.6
-set BUILD=19
+set VERSION=1.1.7
+set BUILD=20
 set QUESTION_COUNT=3
-set SAVE_FILE_NAME=%GAME_NAME%.save
+set SAVE_FILE_NAME="%USER_DIR%\%GAME_NAME%.save"
 set SAVE_FILE_VERSION=1
-set LOCK_FILE_NAME=.SessionLock
-set CHLG_FILE_NAME=Changelog.txt
+set LOCK_FILE_NAME="%TEMP_DIR%\%GAME_NAME%.SessionLock"
+set CHANGELOG_FILE_NAME=Changelog.txt
 set CONNECTION_TEST_SERVER=www.google.com
 if not exist %LOCK_FILE_NAME% goto setup_noLock
 echo Error: Session is already running.

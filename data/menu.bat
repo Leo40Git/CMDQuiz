@@ -21,7 +21,8 @@ echo 3) Instructions
 echo 4) Change color
 echo 5) About the game
 echo 6) View changelog
-echo 7) Quit
+echo 7) Open save folder
+echo 8) Quit
 set /p menu="What is your selection? "
 set /a menu=menu
 if %menu% equ 1 goto startGame
@@ -30,7 +31,8 @@ if %menu% equ 3 goto instructions
 if %menu% equ 4 goto color
 if %menu% equ 5 goto about
 if %menu% equ 6 goto changelog
-if %menu% equ 7 goto quit
+if %menu% equ 7 goto openSaveFolder
+if %menu% equ 8 goto quit
 :invalid
 echo Invalid selection.
 pause
@@ -82,12 +84,16 @@ pause
 goto main
 :changelog
 cls
-if exist %CHLG_FILE_NAME% (type %CHLG_FILE_NAME%) else goto changelog_error_notExists
+if exist %CHANGELOG_FILE_NAME% (type %CHANGELOG_FILE_NAME%) else (goto changelog_error_notExists)
 pause
 goto main
 :changelog_error_notExists
-echo Error: Changelog file does not exist???
+echo Error: Changelog file ("%CHANGELOG_FILE_NAME%") does not exist.
 pause
+goto main
+:openSaveFolder
+if not exist %USER_DIR% md %USER_DIR%
+explorer %USER_DIR%
 goto main
 :quit
 if not [^%quit%] == [] set "quit="

@@ -1,13 +1,19 @@
 CMDQuiz Changelog
 Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
 ~~~~
+Version 1.1.7 (build 20)
+- Changed location of save and session lock files,
+  transfer your save files to "%localappdata%\CMDQuiz" to preserve your settings
+- Save folder can be opened from main menu
+~~~~
 Version 1.1.6 (build 19)
 - Session lock file is now hidden
 - Menus and questions now use numbers instead of letters
 - Fixed color menu prompting for choice twice
 ~~~~
 Version 1.1.5 (build 18)
-- Added session locking - another session cannot be launched if an existing one is found
+- Added session locking - another session cannot be launched if an existing one is 
+  found
 - Added internet connection check to update check
 - Added viewing the changelog from the main menu
 ~~~~

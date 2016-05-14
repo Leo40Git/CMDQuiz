@@ -50,7 +50,7 @@ set "cur_lvl="
 goto exitUtil
 
 :: Load a save file made with gameSave
-:gameLoad fileName successVar
+:gameLoad fileName resultVar
 if defined DISABLE_SAVING goto exitUtil
 if not exist %1 goto exitUtil
 < %1 (
@@ -105,4 +105,9 @@ set /a "errlvl=%errlvl%"
 set command="exit /b %errlvl%"
 cmd /c %command%
 endlocal
+goto exitUtil
+
+:: Gets file path
+:getFilePath file resultVar
+set %2=%~dp1
 goto exitUtil
