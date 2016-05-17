@@ -1,19 +1,20 @@
 @echo off
 :: Utilities
 :launchUtil
-if "%1"=="" goto exitUtil
+if "%1"=="" goto:eof
 call :%*
-:exitUtil
-exit /b
+goto:eof
 
 :: Get string length
 :strlen string resultVar
 setlocal EnableDelayedExpansion
-set str=%1
-:strlen_loop
-if not "!str:~%len%!"=="" set /A len+=1 & goto strlen_loop
-(endlocal & set %2=%len%)
-goto exitUtil
+set "s=%~1#"
+set "len=0"
+for %%P in (4096 2048 1024 512 256 128 64 32 16 8 4 2 1) do (
+	if "!s:~%%P,1!" NEQ "" set /a "len+=%%P"&&set "s=!s:~%%P!"
+)
+(endlocal && set "%~2=%len%")
+goto:eof
 
 :: Delay execution
 :delay seconds
@@ -21,23 +22,23 @@ setlocal
 set /a "delay=%1+1"
 ping -n %delay% 127.0.0.1>nul
 endlocal
-goto exitUtil
+goto:eof
 
 :: Check if number
 :isNum string resultVar
 SET "var="&for /f "delims=0123456789" %%i in ("%1") do set var=%%i
 if defined var (set %2=0) else (set %2=1)
-goto exitUtil
+goto:eof
 
 :: Check if hexadecimal value
 :isHex string resultVar
 SET "var="&for /f "delims=0123456789ABCDEFabcdef" %%i in ("%1") do set var=%%i
 if defined var (set %2=0) else (set %2=1)
-goto exitUtil
+goto:eof
 
 :: Create a save file to load with gameLoad
 :gameSave fileName
-if defined DISABLE_SAVING goto exitUtil
+if defined DISABLE_SAVING goto:eof
 set cur_lvl=1
 if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
 (
@@ -47,12 +48,12 @@ if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
   echo %COLOR_VALUE%
 ) > %1
 set "cur_lvl="
-goto exitUtil
+goto:eof
 
 :: Load a save file made with gameSave
 :gameLoad fileName resultVar
-if defined DISABLE_SAVING goto exitUtil
-if not exist %1 goto exitUtil
+if defined DISABLE_SAVING goto:eof
+if not exist %1 goto:eof
 < %1 (
   set /p savever=
   )
@@ -95,7 +96,7 @@ if defined savever set "savever="
 if defined savebuild set "savebuild="
 if defined cur_lvl set "cur_lvl="
 if defined col_val set "col_val="
-goto exitUtil
+goto:eof
 
 :: Sets the errorlevel
 :setErrorlevel errlvl
@@ -105,9 +106,9 @@ set /a "errlvl=%errlvl%"
 set command="exit /b %errlvl%"
 cmd /c %command%
 endlocal
-goto exitUtil
+goto:eof
 
 :: Gets file path
 :getFilePath file resultVar
 set %2=%~dp1
-goto exitUtil
+goto:eof
