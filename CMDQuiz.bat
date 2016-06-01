@@ -20,8 +20,8 @@ if not exist %USER_DIR% md %USER_DIR%
 set TEMP_DIR=%~dp0
 if defined temp (set TEMP_DIR=%temp%) else if defined tmp (set TEMP_DIR=%tmp%)
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.9
-set BUILD=23
+set VERSION=1.1.9_1
+set BUILD=24
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME="%USER_DIR%\%GAME_NAME%.save"
 set SAVE_FILE_VERSION=2
@@ -85,8 +85,6 @@ goto launch
 :launch
 call data\menu.bat
 :endGame
-if exist %LOCK_FILE_NAME% del %LOCK_FILE_NAME%
 popd
-:exitBat
 ENDLOCAL
 exit /b
