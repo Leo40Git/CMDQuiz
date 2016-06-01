@@ -1,6 +1,7 @@
 @echo off
 :: Color menu
 :main
+if defined menu set "menu="
 cls
 echo Color Menu
 echo The current color is %COLOR_VALUE%.
@@ -70,9 +71,9 @@ if not "^%rcol%" == [] set "rcol="
 set /p rcol="[Y/N] "
 if /i ^%rcol% == Y (goto resetColFunc) else (goto main)
 :resetColFunc
-set COLOR_VALUE=9F
+set COLOR_VALUE=%DEFAULT_COLOR_VALUE%
 color %COLOR_VALUE%
 goto main
 :returnToMenu
-call data\util.bat gameSave %SAVE_FILE_NAME%
+call data\util.bat settingsSave %SETTINGS_FILE_NAME%
 goto:eof

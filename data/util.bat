@@ -70,32 +70,15 @@ if %savebuild% GTR %BUILD% goto gameLoad_invalid
   )
 if %cur_lvl% LSS 1 goto gameLoad_invalid
 if %cur_lvl% GTR %QUESTION_COUNT% goto gameLoad_invalid
-< %1 (
-  set /p savever=
-  set /p savebuild=
-  set /p cur_lvl=
-  set /p col_val=
-  )
-set len=0
-call :strlen %col_val% len
-if %len% GTR 2 set col_val=%col_val:~0,2%
-if %col_val:~0,1%==%col_val:~1,1% goto gameLoad_invalid
-set hex=0
-call :isHex %col_val% hex
-if %hex% equ 0 goto gameLoad_invalid
 set CURRENT_LEVEL=%cur_lvl%
-set COLOR_VALUE=%col_val%
 set %2=1
 goto gameLoad_exit
 :gameLoad_invalid
 set %2=0
 :gameLoad_exit
-if defined hex set "hex="
-if defined len set "len="
 if defined savever set "savever="
 if defined savebuild set "savebuild="
 if defined cur_lvl set "cur_lvl="
-if defined col_val set "col_val="
 goto:eof
 
 :: Sets the errorlevel
@@ -112,3 +95,50 @@ goto:eof
 :getFilePath file resultVar
 set %2=%~dp1
 goto:eof
+
+:: Create a settings file to load with settingsLoad
+:settingsSave fileName
+(
+  echo CMDQUIZ_SETTINGS_V%SETTINGS_FILE_VERSION%
+  echo %BUILD%
+  echo %COLOR_VALUE%
+) > %1
+goto:eof
+
+:: Load a settings file made with settingsSave
+:settingsLoad fileName
+if not exist %1 goto:eof
+< %1 (
+  set /p savever=
+  )
+if "%savever%" NEQ "CMDQUIZ_SETTINGS_V%SETTINGS_FILE_VERSION%" goto settingsLoad_invalid
+< %1 (
+  set /p savever=
+  set /p savebuild=
+  )
+if %savebuild% GTR %BUILD% goto settingsLoad_invalid
+< %1 (
+  set /p savever=
+  set /p savebuild=
+  set /p col_val=
+  )
+set len=0
+call :strlen %col_val% len
+if %len% GTR 2 set col_val=%col_val:~0,2%
+if %col_val:~0,1%==%col_val:~1,1% goto settingsLoad_invalid
+set hex=0
+call :isHex %col_val% hex
+if %hex% equ 0 goto settingsLoad_invalid
+set COLOR_VALUE=%col_val%
+set %2=1
+goto gameLoad_exit
+:settingsLoad_invalid
+set %2=0
+:settingsLoad_exit
+if defined hex set "hex="
+if defined len set "len="
+if defined savever set "savever="
+if defined savebuild set "savebuild="
+if defined col_val set "col_val="
+goto:eof
+

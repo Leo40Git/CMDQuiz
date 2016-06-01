@@ -1,6 +1,7 @@
 @echo off
 :: Menu screen
 :main
+if defined menu set "menu="
 cls
 echo(
 echo  +----------------------------------------+
@@ -84,7 +85,8 @@ pause
 goto main
 :changelog
 cls
-if exist %CHANGELOG_FILE_NAME% (type %CHANGELOG_FILE_NAME%) else (goto changelog_error_notExists)
+if not exist %CHANGELOG_FILE_NAME% goto changelog_error_notExists
+more<%CHANGELOG_FILE_NAME%
 pause
 goto main
 :changelog_error_notExists
@@ -93,7 +95,7 @@ pause
 goto main
 :openSaveFolder
 if not exist %USER_DIR% md %USER_DIR%
-explorer %USER_DIR%
+start "explorer.exe" %USER_DIR%
 goto main
 :quit
 if not [^%quit%] == [] set "quit="

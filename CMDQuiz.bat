@@ -20,43 +20,42 @@ if not exist %USER_DIR% md %USER_DIR%
 set TEMP_DIR=%~dp0
 if defined temp (set TEMP_DIR=%temp%) else if defined tmp (set TEMP_DIR=%tmp%)
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.8
-set BUILD=22
+set VERSION=1.1.9
+set BUILD=23
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME="%USER_DIR%\%GAME_NAME%.save"
-set SAVE_FILE_VERSION=1
-set LOCK_FILE_NAME="%TEMP_DIR%\%GAME_NAME%.SessionLock"
+set SAVE_FILE_VERSION=2
+set SETTINGS_FILE_NAME="%USER_DIR%\%GAME_NAME%.settings"
+set SETTINGS_FILE_VERSION=1
 set CHANGELOG_FILE_NAME=Changelog.txt
 set CONNECTION_TEST_SERVER=www.google.com
-if not exist %LOCK_FILE_NAME% goto setup_noLock
-echo Error: Session is already running.
-pause
-goto exitBat
-:setup_noLock
-copy nul %LOCK_FILE_NAME%>nul
-attrib %LOCK_FILE_NAME% +H
+set DEFAULT_COLOR_VALUE=9F
 :: END CONSTANTS
-if "%~1"=="--?" goto usage
+echo.%* | findstr /ic:"--?">nul
+if %errorlevel% equ 0 goto usage
+echo.%* | findstr /ic:"--skip-update-check">nul
+if %errorlevel% equ 0 set SKIP_UPDATE_CHECK=1
+echo.%* | findstr /ic:"--disable-saving">nul
+if %errorlevel% equ 0 set DISABLE_SAVING=1
 goto boot
 :usage
 echo CMDQuiz Version %VERSION% (build %BUILD%)
 echo A quiz game being made in native Batch script.
 echo Usage: %~n0 [options]
 echo Key:
-echo     options - Options for current session
+echo     options - Options for current session.
 echo               These options include:
-echo               --skipUpdateCheck - Skip update checking
-echo               --disableSaving   - Disable saving ^& loading
+echo               --?                 - Shows this help message.
+echo               --skip-update-check - Skips update checking.
+echo               --disable-saving    - Disables saving and loading
+echo                                     (does NOT affect settings file).
+endlocal
 exit /b
 :boot
-echo.%* | findstr /ic:"--skipUpdateCheck">nul
-if %errorlevel% equ 0 set SKIP_UPDATE_CHECK=true
-echo.%* | findstr /ic:"--disableSaving">nul
-if %errorlevel% equ 0 set DISABLE_SAVING=true
 cls
 pushd %~dp0
-set COLOR_VALUE=9F
-call data\util.bat gameLoad %SAVE_FILE_NAME% g
+set COLOR_VALUE=%DEFAULT_COLOR_VALUE%
+call data\util.bat settingsLoad %SETTINGS_FILE_NAME% g
 set "g="
 color %COLOR_VALUE%
 title CMDQuiz Version %VERSION% (build %BUILD%)
@@ -86,7 +85,6 @@ goto launch
 :launch
 call data\menu.bat
 :endGame
-attrib %LOCK_FILE_NAME% -H
 if exist %LOCK_FILE_NAME% del %LOCK_FILE_NAME%
 popd
 :exitBat
