@@ -45,7 +45,6 @@ if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
   echo CMDQUIZ_SAVE_V%SAVE_FILE_VERSION%
   echo %BUILD%
   echo %cur_lvl%
-  echo %COLOR_VALUE%
 ) > %1
 set "cur_lvl="
 goto:eof
