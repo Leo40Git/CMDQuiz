@@ -20,8 +20,8 @@ if not exist %USER_DIR% md %USER_DIR%
 set TEMP_DIR=%~dp0
 if defined temp (set TEMP_DIR=%temp%) else if defined tmp (set TEMP_DIR=%tmp%)
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.9_2
-set BUILD=25
+set VERSION=1.1.9_3
+set BUILD=26
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME="%USER_DIR%\%GAME_NAME%.save"
 set SAVE_FILE_VERSION=2
@@ -59,13 +59,13 @@ call data\util.bat settingsLoad %SETTINGS_FILE_NAME% g
 set "g="
 color %COLOR_VALUE%
 title CMDQuiz Version %VERSION% (build %BUILD%)
+if defined SKIP_UPDATE_CHECK goto launch
 ping "%CONNECTION_TEST_SERVER%" -n 1 -w 1000>nul
 if errorlevel 1 (
   echo Error: Can't check for updates, not connected to the internet.
   pause
   goto launch
 )
-if defined SKIP_UPDATE_CHECK goto launch
 :checkForUpdates
 if exist version.txt del version.txt
 bitsadmin /transfer checkForUpdates /download /priority normal "https://www.dropbox.com/s/lhtvg70xfxfh0lj/version.txt?dl=1" "%CD%\version.txt" >nul

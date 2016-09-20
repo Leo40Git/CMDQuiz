@@ -79,8 +79,7 @@ goto main
 :about
 echo CMDQuiz Version %VERSION% (build %BUILD%)
 echo A quiz game being made in native Batch script.
-echo Feel free to modify these scripts to your liking, just remember to credit me if you're going to distribute
-echo the modified versions. See "LICENSE" for more information.
+echo Feel free to modify these scripts to your liking, just remember to credit Leo40Git if you're going to distribute the modified versions. See "LICENSE" for more information.
 pause
 goto main
 :changelog
