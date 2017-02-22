@@ -83,10 +83,8 @@ goto:eof
 :: Sets the errorlevel
 :setErrorlevel errlvl
 setlocal
-set errlvl=%1
-set /a "errlvl=%errlvl%"
-set command="exit /b %errlvl%"
-cmd /c %command%
+set /a "errlvl=%1"
+cmd /c "exit /b %errlvl%"
 endlocal
 goto:eof
 
@@ -130,7 +128,7 @@ call :isHex %col_val% hex
 if %hex% equ 0 goto settingsLoad_invalid
 set COLOR_VALUE=%col_val%
 set %2=1
-goto gameLoad_exit
+goto settingsLoad_exit
 :settingsLoad_invalid
 set %2=0
 :settingsLoad_exit

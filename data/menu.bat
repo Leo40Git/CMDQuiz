@@ -69,6 +69,7 @@ echo Congrats^! You completed the game^!
 pause
 goto main
 :instructions
+cls
 echo In each level, you will be asked a question.
 echo You will need to choose an answer, and only one is correct, so choose wisley!
 pause
@@ -77,6 +78,7 @@ goto main
 call data\colormenu.bat
 goto main
 :about
+cls
 echo CMDQuiz Version %VERSION% (build %BUILD%)
 echo A quiz game being made in native Batch script.
 echo Feel free to modify these scripts to your liking, just remember to credit Leo40Git if you're going to distribute the modified versions. See "LICENSE" for more information.
