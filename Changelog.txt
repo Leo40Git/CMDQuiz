@@ -1,6 +1,15 @@
 CMDQuiz Changelog
 Full changes can be found at: https://github.com/Leo40Git/CMDQuiz/commits/master
 ~~~~
+Version 1.2.0 (build 28)
+- Added settings menu
+~~~~
+Version 1.1.9_4 (build 27)
+- Fixed an error
+~~~~
+Version 1.1.9_3 (build 26)
+- Tiny fix
+~~~~
 Version 1.1.9_2 (build 25)
 - Fixed something I missed while moving color value (fixes issue #1)
 ~~~~

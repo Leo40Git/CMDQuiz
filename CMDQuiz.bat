@@ -20,8 +20,8 @@ if not exist %USER_DIR% md %USER_DIR%
 set TEMP_DIR=%~dp0
 if defined temp (set TEMP_DIR=%temp%) else if defined tmp (set TEMP_DIR=%tmp%)
 set GAME_NAME=CMDQuiz
-set VERSION=1.1.9_4
-set BUILD=27
+set VERSION=1.2.0
+set BUILD=28
 set QUESTION_COUNT=3
 set SAVE_FILE_NAME="%USER_DIR%\%GAME_NAME%.save"
 set SAVE_FILE_VERSION=2
@@ -55,7 +55,7 @@ exit /b
 cls
 pushd %~dp0
 set COLOR_VALUE=%DEFAULT_COLOR_VALUE%
-call data\util.bat settingsLoad %SETTINGS_FILE_NAME% g
+call data\util.bat settingsLoad g
 set "g="
 color %COLOR_VALUE%
 title CMDQuiz Version %VERSION% (build %BUILD%)

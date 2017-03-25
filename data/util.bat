@@ -37,7 +37,7 @@ if defined var (set %2=0) else (set %2=1)
 goto:eof
 
 :: Create a save file to load with gameLoad
-:gameSave fileName
+:gameSave
 if defined DISABLE_SAVING goto:eof
 set cur_lvl=1
 if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
@@ -45,24 +45,24 @@ if defined CURRENT_LEVEL set cur_lvl=%CURRENT_LEVEL%
   echo CMDQUIZ_SAVE_V%SAVE_FILE_VERSION%
   echo %BUILD%
   echo %cur_lvl%
-) > %1
+) > %SAVE_FILE_NAME%
 set "cur_lvl="
 goto:eof
 
 :: Load a save file made with gameSave
-:gameLoad fileName resultVar
+:gameLoad resultVar
 if defined DISABLE_SAVING goto:eof
-if not exist %1 goto:eof
-< %1 (
+if not exist %SAVE_FILE_NAME% goto:eof
+< %SAVE_FILE_NAME% (
   set /p savever=
   )
 if "%savever%" NEQ "CMDQUIZ_SAVE_V%SAVE_FILE_VERSION%" goto gameLoad_invalid
-< %1 (
+< %SAVE_FILE_NAME% (
   set /p savever=
   set /p savebuild=
   )
 if %savebuild% GTR %BUILD% goto gameLoad_invalid
-< %1 (
+< %SAVE_FILE_NAME% (
   set /p savever=
   set /p savebuild=
   set /p cur_lvl=
@@ -70,10 +70,10 @@ if %savebuild% GTR %BUILD% goto gameLoad_invalid
 if %cur_lvl% LSS 1 goto gameLoad_invalid
 if %cur_lvl% GTR %QUESTION_COUNT% goto gameLoad_invalid
 set CURRENT_LEVEL=%cur_lvl%
-set %2=1
+set %1=1
 goto gameLoad_exit
 :gameLoad_invalid
-set %2=0
+set %1=0
 :gameLoad_exit
 if defined savever set "savever="
 if defined savebuild set "savebuild="
@@ -94,27 +94,27 @@ set %2=%~dp1
 goto:eof
 
 :: Create a settings file to load with settingsLoad
-:settingsSave fileName
+:settingsSave
 (
   echo CMDQUIZ_SETTINGS_V%SETTINGS_FILE_VERSION%
   echo %BUILD%
   echo %COLOR_VALUE%
-) > %1
+) > %SETTINGS_FILE_NAME%
 goto:eof
 
 :: Load a settings file made with settingsSave
-:settingsLoad fileName
-if not exist %1 goto:eof
-< %1 (
+:settingsLoad resultVar
+if not exist %SETTINGS_FILE_NAME% goto:eof
+< %SETTINGS_FILE_NAME% (
   set /p savever=
   )
 if "%savever%" NEQ "CMDQUIZ_SETTINGS_V%SETTINGS_FILE_VERSION%" goto settingsLoad_invalid
-< %1 (
+< %SETTINGS_FILE_NAME% (
   set /p savever=
   set /p savebuild=
   )
 if %savebuild% GTR %BUILD% goto settingsLoad_invalid
-< %1 (
+< %SETTINGS_FILE_NAME% (
   set /p savever=
   set /p savebuild=
   set /p col_val=
@@ -127,10 +127,10 @@ set hex=0
 call :isHex %col_val% hex
 if %hex% equ 0 goto settingsLoad_invalid
 set COLOR_VALUE=%col_val%
-set %2=1
+set %1=1
 goto settingsLoad_exit
 :settingsLoad_invalid
-set %2=0
+set %1=0
 :settingsLoad_exit
 if defined hex set "hex="
 if defined len set "len="
@@ -138,4 +138,3 @@ if defined savever set "savever="
 if defined savebuild set "savebuild="
 if defined col_val set "col_val="
 goto:eof
-

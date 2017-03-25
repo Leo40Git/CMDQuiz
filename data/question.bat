@@ -12,6 +12,7 @@ if %c% gtr 4 goto error_invalidCorrectAnswer
 endlocal
 setlocal
 cls
+echo Question %CURRENT_LEVEL%
 echo %~1
 echo 1) %~2
 echo 2) %~3

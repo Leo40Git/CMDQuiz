@@ -19,7 +19,7 @@ echo Main Menu
 echo 1) Start new game
 echo 2) Continue existing game
 echo 3) Instructions
-echo 4) Change color
+echo 4) Settings
 echo 5) About the game
 echo 6) View changelog
 echo 7) Open save folder
@@ -29,7 +29,7 @@ set /a menu=menu
 if %menu% equ 1 goto startGame
 if %menu% equ 2 goto continueGame
 if %menu% equ 3 goto instructions
-if %menu% equ 4 goto color
+if %menu% equ 4 goto settings
 if %menu% equ 5 goto about
 if %menu% equ 6 goto changelog
 if %menu% equ 7 goto openSaveFolder
@@ -51,7 +51,7 @@ goto bootGame
 :continueGame
 if not exist %SAVE_FILE_NAME% goto continueGame_errorNoSave
 set success=0
-call data\util.bat gameLoad %SAVE_FILE_NAME% success
+call data\util.bat gameLoad success
 if %success% EQU 0 goto continueGame_errorLoadFailed
 goto bootGame
 :continueGame_errorNoSave
@@ -65,7 +65,7 @@ goto main
 :bootGame
 call data\levelorder.bat %CURRENT_LEVEL%
 cls
-echo Congrats^! You completed the game^!
+echo Congratulations^! You completed the game^!
 pause
 goto main
 :instructions
@@ -74,8 +74,8 @@ echo In each level, you will be asked a question.
 echo You will need to choose an answer, and only one is correct, so choose wisley!
 pause
 goto main
-:color
-call data\colormenu.bat
+:settings
+call data\settings.bat
 goto main
 :about
 cls

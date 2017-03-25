@@ -3,7 +3,7 @@
 :main
 if defined menu set "menu="
 cls
-echo Color Menu
+echo Color Settings
 echo The current color is %COLOR_VALUE%.
 echo 1) Change color
 echo 2) Restore default color
@@ -75,5 +75,5 @@ set COLOR_VALUE=%DEFAULT_COLOR_VALUE%
 color %COLOR_VALUE%
 goto main
 :returnToMenu
-call data\util.bat settingsSave %SETTINGS_FILE_NAME%
+call data\util.bat settingsSave
 goto:eof
